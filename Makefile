@@ -1,12 +1,14 @@
-REMOTE_IP=192.168.122.49
-SSH_USERNAME=tristan
+-include .env
+
+ENV=MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) \
+		MYSQL_PASSWORD=$(MYSQL_PASSWORD)
 
 SSH_TARGET=$(SSH_USERNAME)@$(REMOTE_IP)
 SSH_EXEC=ssh -t $(SSH_TARGET)
 
 apply:
 	scp -r ./src/* $(SSH_TARGET):/etc/nixos
-	$(SSH_EXEC) sudo nixos-rebuild switch
+	$(SSH_EXEC) $(ENV) sudo nixos-rebuild switch
 
 init:
 	ssh-copy-id $(SSH_TARGET)

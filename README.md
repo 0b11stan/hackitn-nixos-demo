@@ -8,9 +8,9 @@
 * [x] setup dev process
 * [x] install docker
 * [x] create docker-nextcloud derivation
-* [ ] install nextcloud
+* [x] install docker-nextcloud as systemd unit
+* [x] harden firewall
 * [ ] harden ssh
-* [ ] harden firewall
 * [ ] harden system as ANSSI
 
 ## Ressources

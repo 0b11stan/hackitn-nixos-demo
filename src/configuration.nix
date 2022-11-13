@@ -1,20 +1,23 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
-  secretMySQLRootPassword = "firstsecret";
-  secretMySQLPassword = "secondsecret";
+  secretMySQLRootPassword = builtins.getEnv "MYSQL_ROOT_PASSWORD";
+  secretMySQLPassword = builtins.getEnv "MYSQL_PASSWORD";
 in {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [./hardware-configuration.nix];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "nixos-harden";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixos-harden";
+    networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [8080 22];
+    };
+  };
 
   time.timeZone = "Europe/Paris";
 
@@ -23,6 +26,7 @@ in {
     keyMap = "fr";
   };
 
+  services.openssh.enable = true;
   virtualisation.docker.enable = true;
 
   users.users = {
@@ -44,6 +48,7 @@ in {
   systemd.services.nextcloud = {
     enable = true;
     restartIfChanged = true;
+    wantedBy = ["multi-user.target"];
     after = ["docker.service"];
     bindsTo = ["docker.service"];
     documentation = ["https://github.com/0b11stan/docker-nextcloud"];
@@ -52,27 +57,7 @@ in {
       MYSQL_ROOT_PASSWORD = secretMySQLRootPassword;
       MYSQL_PASSWORD = secretMySQLPassword;
     };
-    wantedBy = ["multi-user.target"];
   };
 
-  services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.05"; # DO NOT MODIFY
 }
