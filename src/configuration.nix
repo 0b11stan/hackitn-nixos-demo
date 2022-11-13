@@ -2,7 +2,10 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  secretMySQLRootPassword = "firstsecret";
+  secretMySQLPassword = "secondsecret";
+in {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -26,17 +29,31 @@
     tristan = {
       isNormalUser = true;
       extraGroups = ["wheel" "docker"];
-    };
-    appuser = {
-      isNormalUser = true;
-      extraGroups = ["docker"];
+      packages = [pkgs.neovim];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    curl
+  nixpkgs.overlays = [
+    (self: super: {
+      docker-nextcloud = super.callPackage ./docker-nextcloud.nix {};
+    })
   ];
+
+  environment.systemPackages = [pkgs.docker-nextcloud];
+
+  systemd.services.nextcloud = {
+    enable = true;
+    restartIfChanged = true;
+    after = ["docker.service"];
+    bindsTo = ["docker.service"];
+    documentation = ["https://github.com/0b11stan/docker-nextcloud"];
+    script = "${pkgs.docker-nextcloud}/docker-nextcloud.sh";
+    environment = {
+      MYSQL_ROOT_PASSWORD = secretMySQLRootPassword;
+      MYSQL_PASSWORD = secretMySQLPassword;
+    };
+    wantedBy = ["multi-user.target"];
+  };
 
   services.openssh.enable = true;
 
@@ -44,7 +61,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

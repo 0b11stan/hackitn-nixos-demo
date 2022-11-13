@@ -7,6 +7,7 @@
 * [x] connect to ssh server
 * [x] setup dev process
 * [x] install docker
+* [x] create docker-nextcloud derivation
 * [ ] install nextcloud
 * [ ] harden ssh
 * [ ] harden firewall
