@@ -2,11 +2,11 @@
 
 ## Goals
 
-* [ ] download isos
-* [ ] create vm, install nixos
-* [ ] connect to ssh server
-* [ ] setup dev process
-* [ ] install docker
+* [x] download isos
+* [x] create vm, install nixos
+* [x] connect to ssh server
+* [x] setup dev process
+* [x] install docker
 * [ ] install nextcloud
 * [ ] harden ssh
 * [ ] harden firewall
