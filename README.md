@@ -18,3 +18,4 @@
 * [installation](https://nixos.org/manual/nixos/stable/index.html#sec-installation-manual-summary)
 * [nixos wiki: security](https://nixos.wiki/wiki/Security)
 * [ANSSI on GNU/Linux Security](https://www.ssi.gouv.fr/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/)
+* [ANSSI on OpenSSH](https://www.ssi.gouv.fr/guide/recommandations-pour-un-usage-securise-dopenssh/)

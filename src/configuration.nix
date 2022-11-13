@@ -26,7 +26,13 @@ in {
     keyMap = "fr";
   };
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    allowSFTP = false;
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+  };
+
   virtualisation.docker.enable = true;
 
   users.users = {
@@ -34,6 +40,7 @@ in {
       isNormalUser = true;
       extraGroups = ["wheel" "docker"];
       packages = [pkgs.neovim];
+      openssh.authorizedKeys.keyFiles = [./ssh-keys/silver-hp.pub];
     };
   };
 
