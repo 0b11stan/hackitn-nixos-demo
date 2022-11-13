@@ -4,7 +4,8 @@
 
 * [ ] download isos
 * [ ] create vm, install nixos
-* [ ] install ssh server
+* [ ] connect to ssh server
+* [ ] setup dev process
 * [ ] install docker
 * [ ] install nextcloud
 * [ ] harden ssh
@@ -13,5 +14,6 @@
 
 ## Ressources
 
-* https://nixos.wiki/wiki/Security
-* https://www.ssi.gouv.fr/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+* [installation](https://nixos.org/manual/nixos/stable/index.html#sec-installation-manual-summary)
+* [nixos wiki: security](https://nixos.wiki/wiki/Security)
+* [ANSSI on GNU/Linux Security](https://www.ssi.gouv.fr/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/)
