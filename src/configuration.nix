@@ -28,7 +28,6 @@ in {
 
   services.openssh = {
     enable = true;
-    allowSFTP = false;
     passwordAuthentication = false;
     permitRootLogin = "no";
   };

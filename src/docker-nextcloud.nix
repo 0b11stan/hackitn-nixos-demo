@@ -17,7 +17,7 @@ in
       owner = "0b11stan";
       repo = "docker-nextcloud";
       rev = "main";
-      sha256 = "sha256-u5TT0Y1twaNlNPmTzcfjRMx2ZD6mRMgzD65eYvhwjXo=";
+      sha256 = "sha256-Sh+9Apb71QJHeShgaUbqLXQJMEjrBfkY/tW4Piq7Kss=";
     };
 
     builder = "${pkgs.bash}/bin/bash";

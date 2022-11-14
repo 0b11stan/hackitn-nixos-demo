@@ -25,17 +25,17 @@
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/ee75e2eb-4096-4096-8855-d83893ad6dd4";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2268-4FCD";
+    device = "/dev/disk/by-label/boot";
     fsType = "vfat";
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-uuid/4d1e2b0e-0819-4316-aab7-0f8393257fb2";}
+    {device = "/dev/disk/by-label/swap";}
   ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

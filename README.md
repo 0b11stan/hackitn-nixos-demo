@@ -1,5 +1,41 @@
 # Nixos Harden
 
+## Installation
+
+Follow the [default installation](https://nixos.org/manual/nixos/stable/index.html#sec-installation-manual-summary).
+
+As a first configuration write the following:
+
+```nix
+{ config, pkgs, ... }:
+{
+  imports = [./hardware-configuration.nix];
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  networking.networkmanager.enable = true;
+  networking.firewall.enable = false;
+  services.openssh.enable = true;
+  users.users.tristan = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+  };
+  system.stateVersion = "22.05";
+
+}
+```
+
+Apply configuration (ask root password at the end)
+
+```bash
+nixos-install
+```
+
+Reboot, then, change user's password
+
+```bash
+passwd tristan
+```
+
 ## Goals
 
 * [x] download isos
@@ -10,7 +46,7 @@
 * [x] create docker-nextcloud derivation
 * [x] install docker-nextcloud as systemd unit
 * [x] harden firewall
-* [ ] harden ssh
+* [x] harden ssh
 * [ ] harden system as ANSSI
 
 ## Ressources

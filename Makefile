@@ -11,7 +11,6 @@ apply:
 	$(SSH_EXEC) $(ENV) sudo nixos-rebuild switch
 
 init:
-	ssh-copy-id $(SSH_TARGET)
 	scp -r ./src/init.sh $(SSH_TARGET):/home/$(SSH_USERNAME)/init.sh
 	$(SSH_EXEC) chmod +x /home/$(SSH_USERNAME)/init.sh
 	$(SSH_EXEC) /home/$(SSH_USERNAME)/init.sh
