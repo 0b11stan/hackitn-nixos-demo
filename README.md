@@ -1,4 +1,12 @@
-# Nixos Harden
+# Nixos Demo
+
+This is the code I showed in my talk about Nixos on the 2022's [Hack-it-n](https://hack-it-n.com/) convention.
+
+The slideshow is hosted at [hackitn.tic.sh](https://hackitn.tic.sh).
+
+The full convention is recorded on [hack-it-n's youtube channel](https://youtu.be/GpJdcgxwxVE?t=23800).
+
+For any questions, you can reach to me [on linkedin](https://www.linkedin.com/in/tristan-pinaudeau/).
 
 ## Installation
 
